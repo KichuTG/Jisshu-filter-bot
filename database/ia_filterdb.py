@@ -60,7 +60,9 @@ async def save_file(media):
             return 'suc'
 
 async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
-    query = query.strip()
+    query = re.sub(r"[-:\"';!]", " ", query)
+    query = re.sub(r"\s+", " ", query).strip()
+    #if filter:
     if not query:
         raw_pattern = '.'
     elif ' ' not in query:
