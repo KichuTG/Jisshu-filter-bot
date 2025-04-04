@@ -32,13 +32,12 @@ class Database:
             )
         )
 
-    async def get_settings(self, id):
-        chat = await self.grp.find_one({'id':int(id)})
-        if chat:
-            return chat.get('settings', self.default)
+    async def get_settings(self, group_id):
+        chat = await self.grp.find_one({'id': int(group_id)})
+        if chat and 'settings' in chat:
+            return chat['settings']
         else:
-            await self.grp.update_one({'id': int(id)}, {'$set': {'settings': self.default}} , upsert=True)
-        return self.default
+            return self.default.copy()
 
     async def find_join_req(self, id):
         return bool(await self.req.find_one({'id': id}))
@@ -363,22 +362,25 @@ class Database:
             print(f"Got err in db set : {e}")
             return False
     
-    async def setFsub(self , grpID , fsubID, name):
-        return await self.grp_and_ids.update_one({'grpID': grpID} , {'$set': {'grpID': grpID , "fsubID": fsubID, "name": name}}, upsert=True)    
-        
-    async def getFsub(self , grpID):
-        link = await self.grp_and_ids.find_one({"grpID": grpID})
-        if link is not None:
-            return {"id": link.id, "name": link.name}
-        else:
-            return None
-            
-    async def delFsub(self , grpID):
-        result =  await self.grp_and_ids.delete_one({"grpID": grpID})
-        if result.deleted_count != 0:
-            return True
-        else:
-            return False
+#    async def setFsub(self , grpID , fsubID, name):
+#        return await self.grp_and_ids.update_one({'grpID': grpID} , {'$set': {'grpID': grpID , "fsubID": fsubID, "name": name}}, upsert=True)    
+#        
+#    async def getFsub(self , grpID):
+#        link = await self.grp_and_ids.find_one({"grpID": grpID})
+#        if link is not None:
+#            if isinstance(vp, dict):
+#                return {"id": link.fsubID, "name": link.name}
+#            else:
+#                return {"id": link.fsubID}
+#        else:
+#            return None
+#            
+#    async def delFsub(self , grpID):
+#        result =  await self.grp_and_ids.delete_one({"grpID": grpID})
+#        if result.deleted_count != 0:
+#            return True
+#        else:
+#            return False
 
     async def get_send_movie_update_status(self, bot_id):
         bot = await self.botcol.find_one({'id': bot_id})
