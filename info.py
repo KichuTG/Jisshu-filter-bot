@@ -15,7 +15,7 @@ def is_enabled(value, default):
 SESSION = environ.get('SESSION', 'Media_search')
 API_ID = int(environ.get('API_ID', '28714959'))
 API_HASH = environ.get('API_HASH', 'c0b9797634090ee3f4c1c56db6c051a7')
-BOT_TOKEN = environ.get('BOT_TOKEN', '5689518722:AAEoeqHNZUPdhqi5U4BeUj42YWgau0V8Jg4')
+BOT_TOKEN = environ.get('BOT_TOKEN', '')
 #---------------------------------------------------------------
 #---------------------------------------------------------------
 ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '5398056049 1905251964').split()]
@@ -25,9 +25,9 @@ MOVIE_GROUP_LINK = environ.get('MOVIE_GROUP_LINK', 'https://t.me/JisshuMovieZone
 CHANNELS = [int(ch) if id_pattern.search(ch) else ch for ch in environ.get('CHANNELS', '').split()]
 #---------------------------------------------------------------
 #---------------------------------------------------------------
-DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://jiosaavn:jiosaavn@cluster0.ouhhe.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
-DATABASE_NAME = environ.get('DATABASE_NAME', "Cluster0")
-COLLECTION_NAME = environ.get('COLLECTION_NAME', 'My_Tg_files')
+DATABASE_URI = environ.get('DATABASE_URI',"")
+DATABASE_NAME = environ.get('DATABASE_NAME', "PIRO")
+COLLECTION_NAME = environ.get('COLLECTION_NAME', 'FILES')
 #---------------------------------------------------------------
 #---------------------------------------------------------------
 #----------- There will be channel id add in all these ---------
@@ -97,7 +97,7 @@ LINK_MODE = is_enabled('LINK_MODE', True)
 #---------------------------------------------------------------
 #---------------------------------------------------------------
 #---------------------------------------------------------------
-STREAM_MODE = bool(environ.get('STREAM_MODE', True)) # Set True or Flase
+STREAM_MODE = bool(environ.get('STREAM_MODE', False)) # Set True or Flase
 # Online Stream and Download
 
 MULTI_CLIENT = False
